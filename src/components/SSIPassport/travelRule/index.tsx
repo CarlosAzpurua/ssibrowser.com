@@ -1,20 +1,50 @@
 import React, { useState } from 'react';
+import { IEmptyMessage } from '../../../interfaces/IEmptyMessage';
+import buildHandler from '../../../utils/buildDinamicsStates';
 
-function SSIPassport() {
-  const [firstName, setFirstName] = useState('');
-  const handleFirstName = (event) => {
-    setFirstName(event.target.value);
+const SSIPassport: React.FC = () => {
+  const emptyMessage: IEmptyMessage = {
+    firstName: '',
+    lastName: '',
+    streetName: '',
+    buildingNumber: '',
+    country: ''
+  };
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [streetName, setStreetName] = useState<string>('');
+  const [buildingNumber, setBuildingNumber] = useState<string>('');
+  const [country, setCountry] = useState<string>('');
+  const [passportButton, setPassportButton] =
+    useState<string>('button primary');
+  const [savePassport, setSavePassport] = useState<string>(
+    'Save Travel Rule SSI Passport'
+  );
+
+  const [ivms101, setIvms101] = useState<IEmptyMessage>(emptyMessage);
+
+  const handleFirstName = buildHandler(setFirstName);
+
+  const handleLastName = buildHandler(setLastName);
+
+  const handleStreetName = buildHandler(setStreetName);
+
+  const handleBuildingNumber = buildHandler(setBuildingNumber);
+
+  const handleCountry = (event: {
+    target: { value: React.SetStateAction<string> };
+  }): void => {
+    setCountry(event.target.value);
   };
 
   return (
     <>
       <h4 className="major">Generate your Travel Rule SSI Passport </h4>
       <p>
-        {' '}
-        Create an{' '}
+        Create an
         <a href="https://intervasp.org/wp-content/uploads/2020/05/IVMS101-interVASP-data-model-standard-issue-1-FINAL.pdf">
           IVMS101 message
-        </a>{' '}
+        </a>
         for KYC to make your digital identity compliant with the FATF Travel
         Rule to counteract money laundering and terrorism financing, and thus
         building a web of trust. This personal information will get encrypted by
@@ -74,11 +104,11 @@ function SSIPassport() {
               value={savePassport}
               onClick={() => {
                 setIvms101({
-                  firstName: firstName,
-                  lastName: lastName,
-                  streetName: streetName,
-                  buildingNumber: buildingNumber,
-                  country: country
+                  firstName,
+                  lastName,
+                  streetName,
+                  buildingNumber,
+                  country
                 });
                 setSavePassport('Saved');
                 setPassportButton('button');
@@ -100,4 +130,6 @@ function SSIPassport() {
       </form>
     </>
   );
-}
+};
+
+export default SSIPassport;
