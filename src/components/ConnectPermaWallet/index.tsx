@@ -16,7 +16,8 @@ function ConnectPermaWallet() {
     <div id="main" style={{ marginTop: '4%' }}>
       <section style={{ width: '100%' }}>
         <ArConnect />
-        <PrivateKey />
+        {/* TODO: SecModal 
+        <PrivateKey /> */}
         <KeyFile />
       </section>
       {/* <section style={{ width: "100%", marginTop: "4%" }}>
